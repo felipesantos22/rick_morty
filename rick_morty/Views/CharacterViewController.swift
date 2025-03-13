@@ -38,16 +38,6 @@ class CharacterViewController: UITableViewController {
     }
     
     
-    //    private func fetchCharacters() {
-    //        characterService.fetchCharacters { [weak self] characters in
-    //            guard let self = self, let characters = characters else { return }
-    //            DispatchQueue.main.async {
-    //                self.characters = characters
-    //                self.tableView.reloadData()
-    //            }
-    //        }
-    //    }
-    
     /// Método responsável por buscar os personagens da API e atualizar a tabela com novos dados
     private func fetchCharacters() {
         // Chama o serviço para buscar novos personagens

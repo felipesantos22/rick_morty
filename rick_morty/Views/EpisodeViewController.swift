@@ -34,12 +34,37 @@ class EpisodeViewController: UITableViewController {
         tableView.register(EpisodeCell.self, forCellReuseIdentifier: "EpisodeCell")
     }
     
+//    private func fetchEpisodes() {
+//        episodeService.fetchEpisodes { [weak self] episodes in
+//            guard let self = self, let episodes = episodes else { return }
+//            DispatchQueue.main.async {
+//                self.episodes = episodes
+//                self.tableView.reloadData()
+//            }
+//        }
+//    }
+    
+    /// Método responsável por buscar os personagens da API e atualizar a tabela com novos dados
     private func fetchEpisodes() {
-        episodeService.fetchEpisodes { [weak self] episodes in
-            guard let self = self, let episodes = episodes else { return }
+        // Chama o serviço para buscar novos episodios
+        episodeService.fetchService { [weak self] newEpisodes in
+            // Garante que `self` ainda está na memória e que os novos episodios não são nulos
+            guard let self = self, let newEpisodes = newEpisodes else { return }
+            
+            // Atualiza a interface na thread principal
             DispatchQueue.main.async {
-                self.episodes = episodes
-                self.tableView.reloadData()
+                // Obtém o índice do primeiro novo personagem a ser adicionado
+                let startIndex = self.episodes.count
+                // Obtém o índice do último novo episodio a ser adicionado
+                let endIndex = startIndex + newEpisodes.count - 1
+                // Cria uma lista de `IndexPath` para os novos itens
+                let indexPaths = (startIndex...endIndex).map { IndexPath(row: $0, section: 0) }
+                
+                // Adiciona os novos episodios ao array existente
+                self.episodes.append(contentsOf: newEpisodes)
+                
+                // Atualiza a tabela, inserindo apenas as novas células
+                self.tableView.insertRows(at: indexPaths, with: .automatic)
             }
         }
     }
@@ -69,6 +94,13 @@ class EpisodeViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastItemIndex = episodes.count - 1
+        if indexPath.row == lastItemIndex { // Se chegou ao fim da lista
+            fetchEpisodes()
+        }
     }
     
 
