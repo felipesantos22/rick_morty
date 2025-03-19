@@ -20,34 +20,42 @@ class ViewController: UITabBarController {
         let characterViewController = CharacterViewController()
         let episodeViewController = EpisodeViewController()
         let locationViewController = LocationViewController()
+        let characterCollectionViewController = CharacterCollectionViewController()
         
         // Definindo os itens de TabBar
         characterViewController.tabBarItem = UITabBarItem(
             title: "Personagens",
-            image: UIImage(systemName: "star"), // Ícone do TabBar
+            image: UIImage(systemName: "person.fill"), // Ícone do TabBar
             tag: 0
         )
         
         episodeViewController.tabBarItem = UITabBarItem(
             title: "Episodios",
-            image: UIImage(systemName: "star"), // Ícone do TabBar
+            image: UIImage(systemName: "play.fill"), // Ícone do TabBar
             tag: 1
         )
         
         locationViewController.tabBarItem = UITabBarItem(
             title: "Localidades",
-            image: UIImage(systemName: "star"), // Ícone do TabBar
+            image: UIImage(systemName: "map.fill"), // Ícone do TabBar
             tag: 2
+        )
+        
+        characterCollectionViewController.tabBarItem = UITabBarItem(
+            title: "Collection",
+            image: UIImage(systemName: "person.fill"), 
+            tag: 3
         )
         
         // Criando os UINavigationControllers para cada ViewController
         let characterNavController = UINavigationController(rootViewController: characterViewController)
         let episodeNavController = UINavigationController(rootViewController: episodeViewController)
         let locationNavController = UINavigationController(rootViewController: locationViewController)
+        let characterCollectionNavController = UINavigationController(rootViewController: characterCollectionViewController)
         
         
         // Adicionando os ViewControllers ao TabBar
-        self.viewControllers = [characterNavController, episodeNavController, locationNavController]
+        self.viewControllers = [characterNavController, episodeNavController, locationNavController, characterCollectionNavController]
         
         // Customizando a aparência do TabBar
         tabBar.tintColor = .blue // Cor do ícone ativo

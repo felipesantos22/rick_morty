@@ -12,7 +12,7 @@ class CharacterService {
     private var nextPageURL: String? = "https://rickandmortyapi.com/api/character"
     var isFetchingNextPage: Bool = false
     func fetchCharacters(completion: @escaping ([Character]?) -> Void) {
-        guard let url = nextPageURL, !isFetchingNextPage else { // Corrigido aqui
+        guard let url = nextPageURL, !isFetchingNextPage else { 
             return
         }
         isFetchingNextPage = true

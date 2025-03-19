@@ -83,7 +83,6 @@ class CharacterViewController: UITableViewController {
             return UITableViewCell()
         }
         let character = characters[indexPath.row]
-        cell.backgroundColor = .clear
         cell.configure(with: character)
         return cell
     }
@@ -134,16 +133,5 @@ class CharacterViewController: UITableViewController {
             fetchCharacters()
         }
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
